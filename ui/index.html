@@ -1,88 +1,12 @@
+<!-- ui/index.html -->
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Code Auditor - Premium Analysis</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
+<html>
+<head><title>AI Code Audit</title></head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <div class="logo">
-                    <i class="fas fa-brain"></i>
-                    <h1>AI Code Auditor</h1>
-                </div>
-                <p class="tagline">Advanced AI-powered code analysis and security auditing</p>
-            </div>
-        </header>
-
-        <!-- Upload Section -->
-        <section class="upload-section" id="uploadSection">
-            <div class="upload-card">
-                <div class="upload-icon">
-                    <i class="fas fa-cloud-upload-alt"></i>
-                </div>
-                <h2>Upload Your Project</h2>
-                <p>Drop your ZIP file here or click to browse</p>
-                
-                <form id="auditForm" action="/audit" method="post" enctype="multipart/form-data">
-                    <div class="file-input-wrapper">
-                        <input type="file" name="project" id="fileInput" accept=".zip" required>
-                        <label for="fileInput" class="file-input-label">
-                            <i class="fas fa-folder-open"></i>
-                            Choose ZIP File
-                        </label>
-                    </div>
-                    
-                    <button type="submit" class="audit-btn" id="auditBtn">
-                        <i class="fas fa-search"></i>
-                        Start AI Audit
-                    </button>
-                </form>
-            </div>
-        </section>
-
-        <!-- Loading Section -->
-        <section class="loading-section hidden" id="loadingSection">
-            <div class="loading-card">
-                <div class="loading-animation">
-                    <div class="brain-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <div class="loading-dots">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </div>
-                </div>
-                <h3>AI Analysis in Progress</h3>
-                <p>Our advanced AI is examining your code for security vulnerabilities, architecture issues, and best practice violations...</p>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Results Section -->
-        <section class="results-section hidden" id="resultsSection">
-            <div class="results-header">
-                <h2><i class="fas fa-chart-line"></i> Audit Results</h2>
-                <button class="new-audit-btn" onclick="resetAudit()">
-                    <i class="fas fa-plus"></i>
-                    New Audit
-                </button>
-            </div>
-            <div class="results-content" id="resultsContent">
-                <!-- Results will be populated here -->
-            </div>
-        </section>
-    </div>
-
-    <script src="script.js"></script>
+  <h2>Upload Your Project</h2>
+  <form action="/audit" method="post" enctype="multipart/form-data">
+    <input type="file" name="project" accept=".zip" />
+    <button type="submit">Run Audit</button>
+  </form>
 </body>
 </html>
