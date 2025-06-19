@@ -2,10 +2,10 @@
     "name": "bankapiproject",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
+    "main": "index.cjs",
     "type": "module",
     "scripts": {
-        "dev": "node server.js",
+        "dev": "node index.cjs",
         "test": "echo \"Error: no test specified\" && exit 1",
         "ai-audit": "node cli/AIOrchestrator.js",
         "ai-ingest": "node cli/lib/ingest.js"
