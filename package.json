@@ -4,13 +4,11 @@
     "description": "",
     "main": "server.js",
     "type": "module",
-    "scripts": {
-         "start": "node server.js",
-          "dev": "concurrently \"npm run server\" \"npm run client\"",
-           "server": "nodemon server.js",
-           "client": "cd ui && npm run dev",
-            "build": "cd ui && npm install && npm run build"
-    },
+"scripts": {
+  "build": "cd ui && npm install && npm run build",
+  "start": "node server.js"
+},
+
     "keywords": [],
     "author": "Shola Nejo",
     "license": "ISC",
