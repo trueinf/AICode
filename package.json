@@ -4,11 +4,12 @@
     "description": "",
     "main": "server.js",
     "type": "module",
-"scripts": {
-  "build": "cd ui && npm install && npm run build",
-  "start": "node server.js"
-},
-
+    "scripts": {
+        "dev": "node server.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "ai-audit": "node cli/AIOrchestrator.js",
+        "ai-ingest": "node cli/lib/ingest.js"
+    },
     "keywords": [],
     "author": "Shola Nejo",
     "license": "ISC",

@@ -1,39 +1,33 @@
+// server.js
 import express from 'express';
-import path from 'path';
 import multer from 'multer';
-const upload = multer({ dest: 'uploads/' });
-import { fileURLToPath } from 'url';
-import dotenv from 'dotenv';
-dotenv.config();
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+import unzipper from 'unzipper';
+import fs from 'fs';
+import path from 'path';
+import { exec } from 'child_process';
 
 const app = express();
+const upload = multer({ dest: 'uploads/' });
 
-// Enable parsing JSON bodies
-app.use(express.json());
+app.use(express.static('ui'));
 
-// Serve static files from the 'ui' folder (NOT 'ui/dist')
-app.use(express.static(path.join(__dirname, 'ui')));
+app.post('/audit', upload.single('project'), async (req, res) => {
+  const zipPath = req.file.path;
+  const projectDir = `uploads/project-${Date.now()}`;
 
-// Fallback route: serve index.html for any route
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'ui', 'index.html'));
+  fs.mkdirSync(projectDir);
+
+  fs.createReadStream(zipPath)
+    .pipe(unzipper.Extract({ path: projectDir }))
+    .on('close', () => {
+      exec(`node cli/AIOrchestrator.js "${projectDir}"`, { cwd: '.' }, (err, stdout, stderr) => {
+        if (err) return res.send(`<pre>Error:\n${stderr || err.message}</pre>`);
+        res.send(`<pre>${stdout}</pre>`);
+      });
+      
+    });
 });
 
-
-
-app.post('/upload', upload.any(), async (req, res) => {
-  // Handle uploaded files here
-  // Possibly pass them to your ingest logic
-  console.log('Files uploaded:', req.files);
-
-  res.json({ message: 'Files received, audit will start.' });
-});
-
-// Start the server
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+app.listen(3000, () => {
+  console.log('Server running at http://localhost:3000');
 });
