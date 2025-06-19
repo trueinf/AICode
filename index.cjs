@@ -1,5 +1,5 @@
 const http = require("http");
-const app = require("./app");
+const app = require("./app.cjs");
 const server = http.createServer(app);
 const user = require('./models/user');
 
