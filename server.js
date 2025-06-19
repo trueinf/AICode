@@ -1,33 +1,29 @@
 // server.js
 import express from 'express';
-import multer from 'multer';
-import unzipper from 'unzipper';
-import fs from 'fs';
 import path from 'path';
-import { exec } from 'child_process';
+import { fileURLToPath } from 'url';
+
+import dotenv from 'dotenv';
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
-const upload = multer({ dest: 'uploads/' });
 
-app.use(express.static('ui'));
+// Middleware and API routes setup (e.g., app.use('/api', yourRoutes))
+app.use(express.json());
 
-app.post('/audit', upload.single('project'), async (req, res) => {
-  const zipPath = req.file.path;
-  const projectDir = `uploads/project-${Date.now()}`;
+// Serve static frontend from 'ui/dist'
+app.use(express.static(path.join(__dirname, 'ui', 'dist')));
 
-  fs.mkdirSync(projectDir);
-
-  fs.createReadStream(zipPath)
-    .pipe(unzipper.Extract({ path: projectDir }))
-    .on('close', () => {
-      exec(`node cli/AIOrchestrator.js "${projectDir}"`, { cwd: '.' }, (err, stdout, stderr) => {
-        if (err) return res.send(`<pre>Error:\n${stderr || err.message}</pre>`);
-        res.send(`<pre>${stdout}</pre>`);
-      });
-      
-    });
+// Fallback to index.html for SPA routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'ui', 'dist', 'index.html'));
 });
 
-app.listen(3000, () => {
-  console.log('Server running at http://localhost:3000');
+// Start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
