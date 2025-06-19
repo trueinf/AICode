@@ -5,11 +5,11 @@
     "main": "server.js",
     "type": "module",
     "scripts": {
-        "dev": "node server.js",
-        "build": "echo \"No specific build process required for this Node.js application.\"",
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "ai-audit": "node cli/AIOrchestrator.js",
-        "ai-ingest": "node cli/lib/ingest.js"
+         "start": "node server.js",
+          "dev": "concurrently \"npm run server\" \"npm run client\"",
+           "server": "nodemon server.js",
+           "client": "cd client && npm run dev",
+            "build": "cd client && npm install && npm run build"
     },
     "keywords": [],
     "author": "Shola Nejo",
