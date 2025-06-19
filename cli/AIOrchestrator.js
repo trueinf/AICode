@@ -23,7 +23,9 @@ You are an expert software auditor. Review the following code files and point ou
 - Security flaws
 - Best practice violations
 - Suggestions for improvements
+ -errors
 
+Respond in bullet points.
 
 ${files.map(f => `File: ${f.path}\nContent:\n${f.content}`).join("\n\n")}
 `;
