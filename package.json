@@ -8,8 +8,8 @@
          "start": "node server.js",
           "dev": "concurrently \"npm run server\" \"npm run client\"",
            "server": "nodemon server.js",
-           "client": "cd client && npm run dev",
-            "build": "cd client && npm install && npm run build"
+           "client": "cd ui && npm run dev",
+            "build": "cd ui && npm install && npm run build"
     },
     "keywords": [],
     "author": "Shola Nejo",
