@@ -24,7 +24,6 @@ You are an expert software auditor. Review the following code files and point ou
 - Best practice violations
 - Suggestions for improvements
 
-Response should have two sections.Errors and improvements.Each should have 2 to 3 lines maximum.
 
 ${files.map(f => `File: ${f.path}\nContent:\n${f.content}`).join("\n\n")}
 `;
